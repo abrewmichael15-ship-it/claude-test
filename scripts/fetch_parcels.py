@@ -54,6 +54,8 @@ def fetch_page(where_clause, offset):
 
 
 def main():
+    import datetime
+
     muni_codes = load_target_muni_codes()
     quoted = ",".join(f"'{c}'" for c in muni_codes)
     where_clause = f"MUNI IN ({quoted})"
@@ -62,6 +64,7 @@ def main():
 
     all_rows = []
     fieldnames = None
+    date_fields = set()
     offset = 0
     while True:
         data = fetch_page(where_clause, offset)
@@ -73,8 +76,18 @@ def main():
             break
         if fieldnames is None:
             fieldnames = [f["name"] for f in data["fields"]]
+            date_fields = {
+                f["name"] for f in data["fields"] if f["type"] == "esriFieldTypeDate"
+            }
         for feat in features:
-            all_rows.append(feat["attributes"])
+            attrs = feat["attributes"]
+            for field in date_fields:
+                millis = attrs.get(field)
+                if millis is not None:
+                    attrs[field] = datetime.datetime.fromtimestamp(
+                        millis / 1000, tz=datetime.timezone.utc
+                    ).date().isoformat()
+            all_rows.append(attrs)
         print(f"  fetched {len(all_rows)} rows so far (offset {offset})")
         if not data.get("exceededTransferLimit") and len(features) < PAGE_SIZE:
             break

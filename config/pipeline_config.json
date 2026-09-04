@@ -1,0 +1,16 @@
+{
+  "_comment": "Phase 2 pipeline config. Values left null are required inputs the pipeline will NOT guess - it leaves the dependent output column null rather than estimating.",
+
+  "appreciation_factor_annual": null,
+  "_appreciation_factor_annual_comment": "Annual county/market appreciation rate as a decimal (e.g. 0.045 for 4.5%/yr), used to project a property's last sale price forward to today for the equity proxy. Supply a source (e.g. FHFA HPI for the Reading MSA, or a county-specific figure) when you set this.",
+
+  "recent_sale_years_threshold": 3,
+  "_recent_sale_years_threshold_comment": "Properties sold within this many years are flagged recently_sold=True (negative signal in Phase 3 scoring).",
+
+  "tenure_sweet_spot_min_years": 8,
+  "tenure_sweet_spot_max_years": 20,
+  "_tenure_sweet_spot_comment": "Reference range only (used by Phase 3 scoring, not Phase 2). Kept here so both phases read one config.",
+
+  "berks_county_zips": null,
+  "_berks_county_zips_comment": "Optional: list of Berks County ZIP codes, used only as a supplementary out-of-county mailing signal if you want to add it later. Not required - out-of-state mailing (STATECODE != 'PA') is used as the primary absentee corroborator instead, since it needs no external ZIP list."
+}

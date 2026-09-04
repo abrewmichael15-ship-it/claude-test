@@ -1,5 +1,17 @@
 # Follow Up Boss import field mapping
 
+**Ready-to-upload file: `data/processed/fub_import_ready.csv`** — generated
+by `scripts/make_fub_import.py` from `top_500.csv`. Columns are already
+named and shaped for FUB's import mapper (Company, Street Address, City,
+State, Zip, comma-separated Tags, etc.) — no spreadsheet work needed before
+upload. Known quirk: a handful of `Company` values include county `OWN2`
+data that's actually an address fragment, not a co-owner name (e.g. Puerto
+Rico "URB ..." locality lines) — spot-check before using it in a mail-merge
+greeting.
+
+The rest of this doc explains the *reasoning* behind each mapping, in case
+you regenerate the import file yourself or map from `top_500.csv` directly.
+
 Source file: `data/processed/top_500.csv` (regenerate with
 `scripts/build_pipeline.py` then `scripts/score_prospects.py`).
 

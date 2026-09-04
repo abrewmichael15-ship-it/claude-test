@@ -1,0 +1,33 @@
+{
+  "_comment": "Phase 3 scoring config. Every weight and threshold here is tunable - change values and re-run scripts/score_prospects.py. See README 'Phase 3 scoring methodology' for the reasoning behind each one and how to challenge/replace it.",
+
+  "weights": {
+    "tenure": 35,
+    "absentee_owner": 20,
+    "equity_proxy": 25,
+    "open_violations": 20
+  },
+  "_weights_comment": "These four sum to 100 - that's the max score achievable when every signal is live. Right now equity_proxy and open_violations both contribute 0 to every row (no appreciation factor set, no violations data source) - so the practical ceiling today is 55 (tenure 35 + absentee 20). Revisit tier cutoffs once those two go live; scores will jump.",
+
+  "recently_sold_penalty_points": 30,
+  "_recently_sold_penalty_comment": "Subtracted from the base score (not part of the 100-point weight budget) when a property sold less than recent_sale_years_threshold (in pipeline_config.json) years ago. Kept as a flat penalty, not a weight, because 'just sold' should suppress a high score regardless of how the other signals look - a strong negative override, not one input among several.",
+
+  "tax_delinquent_bonus_points": 10,
+  "_tax_delinquent_bonus_comment": "Small bonus, added after the main weighted score - per your instruction to flag delinquency separately rather than fold it into the primary signal mix. tax_delinquent_or_upset_sale is also kept as its own output column/tag so you can filter or route it independently of the score.",
+
+  "tenure_curve": {
+    "zero_below_years": 2,
+    "ramp_to_full_by_years": 8,
+    "full_credit_until_years": 20,
+    "taper_to_years": 35,
+    "taper_floor_score": 0.6,
+    "_comment": "tenure_score is 0 below 'zero_below_years' (just bought - very unlikely to sell), ramps linearly to 1.0 by 'ramp_to_full_by_years', holds at 1.0 through 'full_credit_until_years' (your stated 8-20yr sweet spot), then tapers linearly down to 'taper_floor_score' by 'taper_to_years' and holds there (long-tenure owners - downsizing/estate transitions - are still a real positive signal, just weaker than the sweet spot, not zero)."
+  },
+
+  "top_n": 500,
+  "tier_cutoffs": {
+    "A_top_n": 100,
+    "B_top_n": 300,
+    "_comment": "Tiers are assigned by RANK within the top_n output, not by absolute score thresholds - since the score ceiling changes as equity_proxy/violations go live, a fixed score cutoff would silently reclassify everyone the next time you re-run this. A = ranks 1-100, B = ranks 101-300, C = ranks 301-500."
+  }
+}

@@ -1,5 +1,14 @@
 # Phase 1 — Data Source Inventory
 
+> **Update (2026-09-04):** After the initial pass below, I found that the
+> Berks County parcel/CAMA data is not just "bulk downloadable" but directly
+> **scriptable** via a public ArcGIS REST/FeatureServer endpoint and a DCAT
+> catalog that resolves straight to CSV/download URLs — no manual export
+> needed. I pulled it programmatically; see the addendum at the bottom of
+> this file for exactly what was fetched, the script that reproduces it, and
+> what's still genuinely manual (code violations, delinquency pre-sale,
+> sheriff sale, probate).
+
 Reading, PA prospect scoring project. Prepared for a licensed agent (RS372287)
 building a farming / direct-mail list under the constraints in the project
 README: no MLS data, no paid skip-trace, free/public records only, nothing
@@ -173,3 +182,59 @@ process, not a bypass of any restriction).
 Stopping here per your instructions. Once you've dropped what you can get
 into `./data/raw` (and let me know the outcome of the Reading Self-Serve
 check and any RTKL requests), I'll start Phase 2.
+
+---
+
+## Addendum (2026-09-04) — parcel data fetched programmatically
+
+The Berks County Data Hub (opendata.berkspa.gov) publishes a standard DCAT
+catalog (`/api/feed/dcat-us/1.1.json`) that resolves every dataset — CAMA
+Master/Residential/Commercial files included — to direct CSV/Shapefile/
+GeoJSON/XLSX download URLs *and* to the underlying ArcGIS FeatureServer
+REST endpoints. Those endpoints are public, unauthenticated, and queryable
+with a `where` clause and pagination (`resultOffset`/`resultRecordCount`),
+which means the CAMA Residential extract can be pulled directly instead of
+requiring a manual export.
+
+**What I fetched, and how it maps to what Phase 1 called "manual":**
+
+- `data/raw/berks_cama_residential.csv` — the full CAMA Residential File
+  (45,017 rows) filtered server-side to the 24 target municipality codes
+  (Reading's 19 wards + West Reading, Wyomissing, Shillington, Kenhorst,
+  Cumru Township), via
+  `scripts/fetch_parcels.py`. Contains owner name, mailing address, situs
+  address (componentized), sale date/price, land/building/total assessed
+  value, land use code (LUC), year built, homestead flag, bedrooms/baths/
+  square footage, and more. Re-run the script anytime to refresh.
+- `reference/CAMA_Data_Dictionary.pdf` — the county's own field dictionary
+  (municipality codes, class codes, land-use codes) fetched from the ArcGIS
+  item's raw-file endpoint. This is what Phase 2's single-family filter and
+  column mapping are built from — nothing was guessed.
+- `reference/target_municipalities.csv` and
+  `reference/luc_single_family_codes.csv` — the municipality-code and
+  land-use-code crosswalks I derived from that dictionary, with every
+  judgment call (e.g. whether row homes, mobile-homes-on-owned-land, or
+  fee-simple condos count as "single-family") written down and flagged for
+  you to override in `reference/luc_single_family_codes.csv` if you
+  disagree.
+- `data/raw/tax_claim_upset_sale_2025.pdf` and
+  `data/raw/tax_claim_repository_list.pdf` — downloaded directly (still
+  PDFs, still manual to refresh each cycle since the file URL changes and
+  isn't discoverable via an API — check
+  `berkspa.gov/departments/tax-claim-bureau` for the current link each
+  quarter).
+
+**License note:** the county's GIS Data General Agreement (attached to
+every dataset, full text in `reference/CAMA_Data_Dictionary.pdf`'s source
+item) permits use of this data but states it "may NOT be copied,
+redistributed, resold, transferred, leased, or provided in whole or part to
+any other entity or person." That's fine for your own farming/outreach use;
+it means the raw extract itself shouldn't be handed off or resold as a
+dataset.
+
+**Still genuinely manual / not scriptable** (confirmed, not just assumed):
+sheriff-sale listings (no export button on `sheriffsale.countyofberks.com`),
+pre-sale tax delinquency status (only the upset-sale list is public),
+City of Reading / borough code violations and rental-registration rosters
+(no public search found — RTKL request still the only path), and Register
+of Wills estate filings (name-search only, no bulk export).

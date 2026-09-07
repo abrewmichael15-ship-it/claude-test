@@ -41,9 +41,17 @@ def main():
 
     out.to_csv(OUT_CSV, index=False)
     print(f"Wrote {len(out)} rows to {OUT_CSV}")
+
+    # Cadence differs by tier (see README/marketing plan), and each tier goes
+    # through a different upload/vendor step - Tier A goes to a separate
+    # handwritten-letter vendor, not Click2Mail - so split into per-tier
+    # files rather than making you filter the combined one by hand each drop.
     print()
-    print("Split by tier (mail cadence differs by tier - see README/marketing plan):")
-    print(out["Tier"].value_counts())
+    for tier in sorted(out["Tier"].dropna().unique()):
+        sub = out[out["Tier"] == tier]
+        tier_path = PROCESSED_DIR / f"click2mail_tier_{tier}.csv"
+        sub.to_csv(tier_path, index=False)
+        print(f"  Tier {tier}: {len(sub)} rows -> {tier_path}")
 
 
 if __name__ == "__main__":

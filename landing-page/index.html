@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Michael Abreu Morales | Realty ONE Group</title>
+<meta name="description" content="Buy or sell with Michael Abreu Morales of Realty ONE Group. Get a free home valuation or first access to new listings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--
+  SETUP (do this before going live):
+  1. Lead form — this page posts to Formspree so submissions land in your inbox
+     with zero backend to run. Create a free form at https://formspree.io,
+     then replace FORM_ACTION_URL below with your endpoint (looks like
+     https://formspree.io/f/xxxxxxxx). Until you do, the form will show a
+     friendly error asking the visitor to call/email you directly.
+  2. Swap every [bracketed] placeholder: phone, email, license #, service
+     area, agent photo, and bio paragraph.
+  3. Update the JSON-LD block near the bottom with your real address/phone
+     for local SEO (Google uses this to build your knowledge panel).
+-->
+<style>
+  :root{
+    --gold:#FFC72C;
+    --gold-deep:#C98F00;
+    --gold-ink:#1A1400;
+    --paper:#FFFFFF;
+    --surface:#F6F4EF;
+    --surface-2:#ECE8DE;
+    --text:#1A1917;
+    --text-muted:#5B564C;
+    --border:#E3DFD3;
+    --focus:#1A1917;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0D0D0D;
+      --surface:#161514;
+      --surface-2:#1E1C1A;
+      --text:#F2EEE3;
+      --text-muted:#B9B3A4;
+      --border:#2B2925;
+      --gold-ink:#1A1400;
+      --focus:#F2EEE3;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0D0D0D;
+    --surface:#161514;
+    --surface-2:#1E1C1A;
+    --text:#F2EEE3;
+    --text-muted:#B9B3A4;
+    --border:#2B2925;
+    --gold-ink:#1A1400;
+    --focus:#F2EEE3;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--text);
+    font-family:'Work Sans', system-ui, -apple-system, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  h1,h2,h3{
+    font-family:'Oswald', 'Arial Narrow', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    line-height:1.1;
+    text-wrap:balance;
+    margin:0;
+  }
+  .eyebrow{
+    font-family:'Oswald', sans-serif;
+    font-size:.75rem;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+  }
+  .wrap{max-width:1120px;margin-inline:auto;padding-inline:20px;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+    font-family:'Oswald', sans-serif;
+    font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:.85rem;
+    padding:.9rem 1.5rem;border-radius:4px;border:2px solid transparent;
+    cursor:pointer;transition:transform .12s ease, background .15s ease;
+    text-decoration:none;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-gold{background:var(--gold);color:var(--gold-ink);}
+  .btn-gold:hover{background:var(--gold-deep);}
+  .btn-outline{background:transparent;border-color:var(--text);color:var(--text);}
+  .btn-outline:hover{background:var(--text);color:var(--paper);}
+  :focus-visible{outline:3px solid var(--gold-deep);outline-offset:2px;}
+
+  /* Topbar */
+  .topbar{
+    position:sticky;top:0;z-index:20;
+    background:var(--paper);
+    border-bottom:1px solid var(--border);
+    padding-block:14px;
+  }
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .brand{display:flex;flex-direction:column;line-height:1.1;}
+  .brand-name{font-family:'Oswald',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:.02em;text-transform:uppercase;}
+  .brand-sub{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);font-weight:600;}
+  .topbar-actions{display:flex;align-items:center;gap:14px;}
+  .phone-link{font-weight:600;font-size:.95rem;text-decoration:none;white-space:nowrap;}
+
+  /* Hero */
+  .hero{padding-block:56px 64px;background:var(--surface);border-bottom:1px solid var(--border);}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start;}
+  @media (max-width:860px){.hero-grid{grid-template-columns:1fr;}}
+  .hero h1{font-size:clamp(2.1rem,4.6vw,3.4rem);}
+  .hero-lede{margin-top:16px;font-size:1.15rem;color:var(--text-muted);max-width:46ch;}
+  .trust-bullets{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .trust-bullets li{display:flex;align-items:center;gap:10px;font-weight:500;}
+  .trust-bullets .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex:none;}
+
+  /* Lead card */
+  .lead-card{
+    background:var(--paper);
+    border:1px solid var(--border);
+    border-top:5px solid var(--gold);
+    border-radius:6px;
+    padding:28px;
+    box-shadow:0 18px 40px -24px rgba(0,0,0,.35);
+  }
+  .lead-card h2{font-size:1.35rem;}
+  .lead-card .lede{color:var(--text-muted);font-size:.92rem;margin-top:6px;}
+  .field{margin-top:16px;display:flex;flex-direction:column;gap:6px;}
+  .field label{font-size:.8rem;font-weight:600;letter-spacing:.02em;}
+  .field input, .field textarea{
+    font:inherit;padding:.7rem .8rem;border:1px solid var(--border);
+    border-radius:4px;background:var(--paper);color:var(--text);
+  }
+  .field textarea{resize:vertical;min-height:70px;}
+  .intent-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .intent-group input{position:absolute;opacity:0;width:1px;height:1px;}
+  .intent-group label{
+    cursor:pointer;padding:.5rem 1rem;border:1px solid var(--border);
+    border-radius:999px;font-weight:600;font-size:.82rem;color:var(--text-muted);
+    transition:.15s ease;
+  }
+  .intent-group input:checked + label{background:var(--gold);border-color:var(--gold);color:var(--gold-ink);}
+  .intent-group input:focus-visible + label{outline:3px solid var(--focus);outline-offset:2px;}
+  .lead-card .btn{margin-top:20px;width:100%;}
+  .form-note{margin-top:10px;font-size:.78rem;color:var(--text-muted);text-align:center;}
+  .form-status{margin-top:12px;font-size:.85rem;font-weight:600;}
+  .form-status.err{color:#B3261E;}
+  .form-status.ok{color:#2E7D32;}
+  [hidden]{display:none!important;}
+
+  /* Value props */
+  .section{padding-block:60px;}
+  .section-head{max-width:640px;margin-bottom:32px;}
+  .section-head h2{font-size:clamp(1.6rem,3vw,2.1rem);margin-top:8px;}
+  .value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  @media (max-width:780px){.value-grid{grid-template-columns:1fr;}}
+  .value-card{
+    border:1px solid var(--border);border-radius:6px;padding:26px;background:var(--surface);
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .value-card .num{font-family:'Oswald',sans-serif;font-weight:700;color:var(--gold-deep);font-size:.85rem;letter-spacing:.1em;}
+  .value-card h3{font-size:1.15rem;}
+  .value-card p{margin:0;color:var(--text-muted);font-size:.95rem;}
+
+  /* CTA banner */
+  .cta-banner{
+    background:var(--text);color:var(--paper);padding-block:44px;
+  }
+  :root[data-theme="dark"] .cta-banner, @media (prefers-color-scheme: dark){ }
+  .cta-banner .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+  .cta-banner h2{color:var(--paper);font-size:clamp(1.4rem,2.6vw,1.9rem);}
+  .cta-banner p{margin:6px 0 0;color:var(--surface-2);}
+  .cta-banner .btn-gold{color:var(--gold-ink);}
+
+  /* About */
+  .about-grid{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start;}
+  @media (max-width:700px){.about-grid{grid-template-columns:1fr;}}
+  .avatar{
+    width:132px;height:132px;border-radius:50%;
+    background:var(--surface-2);border:4px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Oswald',sans-serif;font-weight:700;font-size:2.2rem;color:var(--text);
+    flex:none;
+  }
+  .about h2{font-size:1.6rem;}
+  .about p{color:var(--text-muted);max-width:64ch;}
+  .about .license{font-size:.8rem;color:var(--text-muted);margin-top:14px;}
+
+  /* Stories */
+  .story-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  @media (max-width:780px){.story-grid{grid-template-columns:1fr;}}
+  .story-card{border:1px solid var(--border);border-radius:6px;padding:24px;background:var(--surface);}
+  .stars{color:var(--gold-deep);letter-spacing:.15em;font-size:.95rem;}
+  .story-card p{font-style:italic;color:var(--text-muted);margin:12px 0 0;}
+  .story-card .attrib{margin-top:14px;font-style:normal;font-weight:600;font-size:.85rem;}
+
+  /* Footer */
+  .footer{border-top:1px solid var(--border);padding-block:32px;background:var(--surface);}
+  .footer .wrap{display:flex;flex-direction:column;gap:10px;font-size:.8rem;color:var(--text-muted);}
+  .footer strong{color:var(--text);}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <span class="brand-name">Michael Abreu Morales</span>
+      <span class="brand-sub">Realty ONE Group</span>
+    </div>
+    <div class="topbar-actions">
+      <a class="phone-link" href="tel:+1[YOUR-PHONE-NUMBER]">📞 [Your Phone Number]</a>
+      <a class="btn btn-gold" href="#lead-form">Free Home Valuation</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Buy · Sell · Invest</p>
+      <h1>Local Expertise.<br>Real Results.</h1>
+      <p class="hero-lede">Michael Abreu Morales helps buyers and sellers navigate every step of the transaction with clear guidance, sharp negotiation, and the full backing of Realty ONE Group.</p>
+      <ul class="trust-bullets">
+        <li><span class="dot"></span> Realty ONE Group agent</li>
+        <li><span class="dot"></span> Local market specialist</li>
+        <li><span class="dot"></span> Fast response, every time</li>
+      </ul>
+    </div>
+
+    <div class="lead-card" id="lead-form">
+      <h2>Get Started — Free</h2>
+      <p class="lede">Tell me what you're looking for and I'll follow up within one business day.</p>
+      <form id="leadForm" action="FORM_ACTION_URL" method="POST">
+        <input type="hidden" name="_subject" value="New website lead — Michael Abreu Morales">
+        <div class="field">
+          <label for="leadIntent">I'm interested in</label>
+          <div class="intent-group" id="leadIntent" role="radiogroup" aria-label="I'm interested in">
+            <input type="radio" id="intentBuy" name="intent" value="Buying" checked>
+            <label for="intentBuy">Buying</label>
+            <input type="radio" id="intentSell" name="intent" value="Selling">
+            <label for="intentSell">Selling</label>
+            <input type="radio" id="intentValue" name="intent" value="Home Value">
+            <label for="intentValue">Just Curious</label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="leadName">Name</label>
+          <input type="text" id="leadName" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="leadPhone">Phone</label>
+          <input type="tel" id="leadPhone" name="phone" autocomplete="tel" required>
+        </div>
+        <div class="field">
+          <label for="leadEmail">Email</label>
+          <input type="email" id="leadEmail" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="leadMessage">Anything else? (optional)</label>
+          <textarea id="leadMessage" name="message" placeholder="Neighborhood, timeline, budget…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-gold">Send My Request</button>
+        <p class="form-note">No spam — your info goes straight to me, never sold or shared.</p>
+        <p class="form-status" id="formStatus" hidden></p>
+      </form>
+      <div id="formSuccess" hidden>
+        <h2>Thanks — got it! 🎉</h2>
+        <p class="lede">I'll be in touch within one business day. If it's urgent, call <a href="tel:+1[YOUR-PHONE-NUMBER]">[Your Phone Number]</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Why Start Here</p>
+      <h2>Everything you need to make your next move</h2>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <span class="num">01</span>
+        <h3>Free Home Valuation</h3>
+        <p>Curious what your home is worth in today's market? Get a no-obligation estimate and a plan to maximize it.</p>
+      </div>
+      <div class="value-card">
+        <span class="num">02</span>
+        <h3>First Look at New Listings</h3>
+        <p>Tell me your must-haves and I'll send matching homes the moment they hit the market — before the crowd.</p>
+      </div>
+      <div class="value-card">
+        <span class="num">03</span>
+        <h3>Realty ONE Group Backing</h3>
+        <p>Full-service support from one of the fastest-growing real estate brands in the country, with the tools and network to get deals done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-banner">
+  <div class="wrap">
+    <div>
+      <h2>Thinking about selling?</h2>
+      <p>Find out what your home is worth in today's market — takes 60 seconds.</p>
+    </div>
+    <a class="btn btn-gold" href="#lead-form">Get My Free Valuation</a>
+  </div>
+</div>
+
+<section class="section about">
+  <div class="wrap about-grid">
+    <div class="avatar" aria-hidden="true">MA</div>
+    <div>
+      <p class="eyebrow">Your Agent</p>
+      <h2>Michael Abreu Morales</h2>
+      <p>[Add 2–3 sentences here: your background, what you specialize in — first-time buyers, luxury, investment properties — and the neighborhoods or region you serve. Clients want to know who they're working with before they call.]</p>
+      <p class="license">Realty ONE Group · License #[XXXXXXX] · Serving [Your Service Area]</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Client Stories</p>
+      <h2>Real feedback, coming soon</h2>
+    </div>
+    <div class="story-grid">
+      <div class="story-card">
+        <span class="stars">★★★★★</span>
+        <p>This space is ready for your next five-star review. Ask a recent buyer or seller for two sentences about working with you, and drop them right here.</p>
+        <p class="attrib">— A future client, hopefully soon</p>
+      </div>
+      <div class="story-card">
+        <span class="stars">★★★★★</span>
+        <p>Nothing builds trust like a real story from a real closing. Screenshot a text, a review, or a thank-you note and turn it into a quote for this card.</p>
+        <p class="attrib">— Your next testimonial</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div><strong>Michael Abreu Morales</strong> · Realty ONE Group</div>
+    <div>[Your Phone Number] · [your.email@realtyonegroup.com] · License #[XXXXXXX]</div>
+    <div>Each Realty ONE Group office is independently owned and operated. Equal Housing Opportunity.</div>
+    <div>© <span id="year"></span> Michael Abreu Morales. All rights reserved.</div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Michael Abreu Morales",
+  "affiliation": "Realty ONE Group",
+  "telephone": "[YOUR-PHONE-NUMBER]",
+  "email": "[your.email@realtyonegroup.com]",
+  "areaServed": "[Your Service Area]",
+  "url": "https://michaelabreumorales.myrealtyonegroup.com/"
+}
+</script>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const form = document.getElementById('leadForm');
+  const statusEl = document.getElementById('formStatus');
+  const successEl = document.getElementById('formSuccess');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (form.action.includes('FORM_ACTION_URL')) {
+      statusEl.textContent = "This form isn't connected yet — please call or email me directly (see above) and I'll follow up right away.";
+      statusEl.className = 'form-status err';
+      statusEl.hidden = false;
+      return;
+    }
+    statusEl.hidden = true;
+    const data = new FormData(form);
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (!res.ok) throw new Error('bad response');
+      form.hidden = true;
+      successEl.hidden = false;
+    } catch (err) {
+      statusEl.textContent = "Something went wrong sending that — please call or email me directly.";
+      statusEl.className = 'form-status err';
+      statusEl.hidden = false;
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+MLS #,Status,County,Address,City,State,Zip Code,List Price,Original List Price,DOM,Photo Count,Status Change Date,Tax Owner Name,Tax Mailing Address,Tax Mailing City,Tax Mailing State,Tax Mailing Zip
+PABK2000101,Expired,"Berks, PA",123 Penn Street,Reading,PA,19601,"$189,900","$214,900",96,14,11/20/2026,Jane Doe,123 Penn St,Reading,PA,19601
+PALA2000202,Canceled,Lancaster,45 Orange Avenue,Lancaster,PA,17602,"$265,000","$265,000",41,32,11/18/2026,Carlos Rivera,PO Box 88,Lancaster,PA,17608
+PAYK2000303,Withdrawn,York,9 Market Road,York,PA,17401,"$230,000","$240,000",60,25,11/19/2026,Pat Smith,,,,
+PACH2000404,Expired,Chester,1 Main St,West Chester,PA,19380,"$410,000","$425,000",88,40,11/21/2026,Lee Wong,,,,
+PAYK2000505,Expired,York County,77 Elm Drive,Hanover,PA,17331,"$199,500","$219,000",120,9,09/01/2026,Sam Green,,,,
+PABK2000606,Cancelled,BERKS,500 Hill Road,Wyomissing,PA,19610,"$349,900","$369,900",55,22,11/22/2026,,,,,

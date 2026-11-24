@@ -1,0 +1,6 @@
+# Owner names, addresses and phone numbers: never commit
+out/
+*history*.csv
+dnc/
+__pycache__/
+.pytest_cache/
